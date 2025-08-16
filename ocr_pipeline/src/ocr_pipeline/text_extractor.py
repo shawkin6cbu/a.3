@@ -122,6 +122,7 @@ class TextExtractor:
                 page_results=[],
                 confidence_scores=[],
                 errors=[str(e)]
+                max_pages: Optional[int] = 10
             )
     
     def _choose_extraction_method(self, pdf_info: PDFInfo) -> str:
@@ -188,7 +189,7 @@ class TextExtractor:
             return ExtractionResult(
                 filename=pdf_info.filename,
                 filepath=pdf_info.filepath,
-                total_pages=pdf_info.page_count,
+                total_pages=10,
                 extracted_text=full_text,
                 extraction_method="digital",
                 processing_time=0.0,  # Will be updated by caller
@@ -273,7 +274,7 @@ class TextExtractor:
             return ExtractionResult(
                 filename=pdf_info.filename,
                 filepath=pdf_info.filepath,
-                total_pages=pdf_info.page_count,
+                total_pages=10,
                 extracted_text=full_text,
                 extraction_method="ocr",
                 processing_time=0.0,  # Will be updated by caller
@@ -377,7 +378,7 @@ class TextExtractor:
             return ExtractionResult(
                 filename=pdf_info.filename,
                 filepath=pdf_info.filepath,
-                total_pages=pdf_info.page_count,
+                total_pages=10,
                 extracted_text=full_text,
                 extraction_method="hybrid",
                 processing_time=0.0,  # Will be updated by caller
@@ -424,4 +425,5 @@ class TextExtractor:
                 ))
         
         logger.info(f"Batch extraction completed: {len(results)} results")
+
         return results
